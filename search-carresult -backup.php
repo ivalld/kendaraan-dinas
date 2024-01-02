@@ -1,7 +1,6 @@
 <?php
 session_start();
 include('includes/config.php');
-// include('includes/format_rupiah.php');
 error_reporting(0);
 ?>
 
@@ -14,7 +13,7 @@ error_reporting(0);
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="keywords" content="">
   <meta name="description" content="">
-  <title>Kendaraan Dinas Kolinlamil</title>
+  <title>Mutiara Motor Car Rental Portal</title>
   <!--Bootstrap -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
   <!--Custome Style -->
@@ -30,13 +29,13 @@ error_reporting(0);
   <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- SWITCHER -->
-  <link rel="stylesheet" id="switcher-css" type="text/css" href="assets/switcher/css/switcher.css" media="all" />
+  <!-- <link rel="stylesheet" id="switcher-css" type="text/css" href="assets/switcher/css/switcher.css" media="all" />
   <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/red.css" title="red" media="all" data-default-color="true" />
   <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/orange.css" title="orange" media="all" />
   <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/blue.css" title="blue" media="all" />
   <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/pink.css" title="pink" media="all" />
   <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/green.css" title="green" media="all" />
-  <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" />
+  <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" /> -->
 
   <!-- Fav and touch icons -->
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/favicon-icon/apple-touch-icon-144-precomposed.png">
@@ -58,11 +57,11 @@ error_reporting(0);
     <div class="container">
       <div class="page-header_wrap">
         <div class="page-heading">
-          <h1>Daftar Kendaraan</h1>
+          <h1>Daftar Mobil</h1>
         </div>
         <ul class="coustom-breadcrumb">
           <li><a href="index.php">Home</a></li>
-          <li>Daftar Kendaraan</li>
+          <li>Daftar Mobil</li>
         </ul>
       </div>
     </div>
@@ -80,16 +79,18 @@ error_reporting(0);
             <div class="sorting-count">
               <?php
               //Query for Listing count
-              $sql = "SELECT id_mobil from mobil";
+              $brand = $_POST['brand'];
+              $fueltype = $_POST['fueltype'];
+              $sql = "SELECT * from mobil WHERE id_merek='$brand' AND bb='$fueltype'";
               $query = mysqli_query($koneksidb, $sql);
               $cnt = mysqli_num_rows($query);
               ?>
-              <p><span><?php echo htmlentities($cnt); ?> Kendaraan</span></p>
+              <p><span><?php echo htmlentities($cnt); ?> Mobil Ditemukan</span></p>
             </div>
           </div>
 
           <?php
-          $sql1 = "SELECT mobil.*,merek.* FROM mobil,merek WHERE merek.id_merek=mobil.id_merek";
+          $sql1 = "SELECT mobil.*,merek.* FROM mobil,merek WHERE merek.id_merek=mobil.id_merek and mobil.id_merek='$brand' and mobil.bb='$fueltype'";
           $query1 = mysqli_query($koneksidb, $sql1);
           if (mysqli_num_rows($query1) > 0) {
             while ($result = mysqli_fetch_array($query1)) {
@@ -115,7 +116,7 @@ error_reporting(0);
         <aside class="col-md-3 col-md-pull-9">
           <div class="sidebar_widget">
             <div class="widget_heading">
-              <h5><i class="fa fa-filter" aria-hidden="true"></i>Cari Kendaraan</h5>
+              <h5><i class="fa fa-filter" aria-hidden="true"></i>Cari Mobil</h5>
             </div>
             <div class="sidebar_filter">
               <form action="search-carresult.php" method="post">
@@ -134,7 +135,7 @@ error_reporting(0);
                 </div>
                 <div class="form-group select">
                   <select class="form-control" name="fueltype" required>
-                    <option value="">Jenis Bahan Bakar</option>
+                    <option value="" selected>Jenis Bahan Bakar</option>
                     <option value="Bensin">Bensin</option>
                     <option value="Diesel">Diesel</option>
                   </select>
@@ -145,8 +146,8 @@ error_reporting(0);
               </form>
             </div>
           </div>
-
-          <!--/Side-Bar-->
+        </aside>
+        <!--/Side-Bar-->
       </div>
     </div>
   </section>
@@ -176,6 +177,7 @@ error_reporting(0);
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/interface.js"></script>
+
   <!--Switcher-->
   <script src="assets/switcher/js/switcher.js"></script>
   <!--bootstrap-slider-JS-->
