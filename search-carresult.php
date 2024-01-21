@@ -13,7 +13,7 @@ error_reporting(0);
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="keywords" content="">
   <meta name="description" content="">
-  <title>Mutiara Motor Car Rental Portal</title>
+  <title>VMS | Kolinlamil</title>
   <!--Bootstrap -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
   <!--Custome Style -->
@@ -101,7 +101,7 @@ error_reporting(0);
                 <div class="product-listing-content">
                   <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result['id_mobil']); ?>"><?php echo htmlentities($result['nama_merek']); ?> , <?php echo htmlentities($result['nama_mobil']); ?></a></h5>
                   <ul>
-                    <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result['seating']); ?> Seats</li>
+                    <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result['pemegang']); ?></li>
                     <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result['tahun']); ?> </li>
                     <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result['bb']); ?></li>
                   </ul>

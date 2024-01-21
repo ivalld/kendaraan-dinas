@@ -18,6 +18,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<meta name="theme-color" content="#3e454c">
 
 		<title>VMS | Kolinlamil</title>
+
 		<!-- Font awesome -->
 		<link rel="stylesheet" href="css/font-awesome.min.css">
 		<!-- Sandstone Bootstrap CSS -->
@@ -72,15 +73,25 @@ if (strlen($_SESSION['alogin']) == 0) {
 			<?php include('includes/leftbar.php'); ?>
 			<div class="content-wrapper">
 				<div class="container-fluid">
+
 					<div class="row">
 						<div class="col-md-12">
-							<h2 class="page-title">Tambah Kendaraan</h2>
+
+							<h2 class="page-title">Edit Kendaraan</h2>
+
 							<div class="row">
 								<div class="col-md-12">
 									<div class="panel panel-default">
-										<div class="panel-heading">Form Tambah Kendaraan</div>
+										<div class="panel-heading">Form Edit Kendaraan</div>
 										<div class="panel-body">
-											<form method="post" name="theform" action="tambahmobilact.php" class="form-horizontal" onsubmit="return valid(this);" enctype="multipart/form-data">
+											<?php
+											$id = intval($_GET['id']);
+											$sql = "SELECT mobil.*,merek.* FROM mobil, merek WHERE mobil.id_merek=merek.id_merek AND mobil.id_mobil='$id'";
+											$query = mysqli_query($koneksidb, $sql);
+											$result = mysqli_fetch_array($query);
+											?>
+
+											<form method="post" class="form-horizontal" name="theform" action="daftarmotoreditact.php" onsubmit="return valid(this);" enctype="multipart/form-data">
 
 												<div class="form-group">
 													<label class="col-sm-2 control-label">Pemilik Kendaraan<span style="color:red">*</span></label>
@@ -95,14 +106,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 															<?php
 															$mySql = "SELECT distinct satker FROM mobil ORDER BY kd_satker";
 															$myQry = mysqli_query($koneksidb, $mySql);
-															$datasatker = $result['kd_satker'];
+															$datasatker = $result['satker'];
 															while ($satkerData = mysqli_fetch_array($myQry)) {
-																if ($satkerData['kd_satker'] == $datasatker) {
+																if ($satkerData['satker'] == $datasatker) {
 																	$cek = " selected";
 																} else {
 																	$cek = "";
 																}
-																echo "<option value='$satkerkData[kd_satker]' $cek>" . strtoupper($satkerData['satker']) . "</option>";
+																echo "<option value='$satkerkData[satker]' $cek>" . strtoupper($satkerData['satker']) . "</option>";
 															}
 															?>
 														</select>
@@ -203,128 +214,50 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<input type="text" name="perolehan" class="form-control" value="<?php echo htmlentities($result['perolehan']); ?>" required>
 													</div>
 												</div>
+
+
 												<div class="hr-dashed"></div>
 
 												<div class="form-group">
 													<div class="col-sm-12">
-														<h4><b>Upload Gambar</b></h4>
+														<h4><b>Gambar Motor</b></h4>
 													</div>
 												</div>
 
 												<div class="form-group">
 													<div class="col-sm-4">
-														Gambar 1<span style="color:red">*</span><input type="file" name="img1" accept="image/*" required>
+														Gambar 1 <img src="img/vehicleimages/<?php echo htmlentities($result['image1']); ?>" width="300" height="200" style="border:solid 1px #000">
+														<a href="changeimage1.php?imgid=<?php echo htmlentities($result['id_mobil']) ?>">Ganti Gambar 1</a>
 													</div>
 													<div class="col-sm-4">
-														Gambar 2<span style="color:red">*</span><input type="file" name="img2" accept="image/*" required>
+														Gambar 2<img src="img/vehicleimages/<?php echo htmlentities($result['image2']); ?>" width="300" height="200" style="border:solid 1px #000">
+														<a href="changeimage2.php?imgid=<?php echo htmlentities($result['id_mobil']) ?>">Ganti Gambar 2</a>
 													</div>
 													<div class="col-sm-4">
-														Gambar 3<span style="color:red">*</span><input type="file" name="img3" accept="image/*" required>
+														Gambar 3<img src="img/vehicleimages/<?php echo htmlentities($result['image3']); ?>" width="300" height="200" style="border:solid 1px #000">
+														<a href="changeimage3.php?imgid=<?php echo htmlentities($result['id_mobil']) ?>">Ganti Gambar 3</a>
 													</div>
 												</div>
 
+
 												<div class="form-group">
 													<div class="col-sm-4">
-														Gambar 4<span style="color:red">*</span><input type="file" name="img4" accept="image/*" required>
+														Gambar 4<img src="img/vehicleimages/<?php echo htmlentities($result['image4']); ?>" width="300" height="200" style="border:solid 1px #000">
+														<a href="changeimage4.php?imgid=<?php echo htmlentities($result['id_mobil']) ?>">Ganti Gambar 4</a>
 													</div>
 													<div class="col-sm-4">
-														Gambar 5<input type="file" name="img5" accept="image/*">
+														Gambar 5
+														<?php if ($result['image5'] == "") {
+															echo htmlentities("File not available");
+														} else { ?>
+															<img src="img/vehicleimages/<?php echo htmlentities($result['image5']); ?>" width="300" height="200" style="border:solid 1px #000">
+															<a href="changeimage5.php?imgid=<?php echo htmlentities($result['id_mobil']) ?>">Ganti Gambar 5</a>
+														<?php } ?>
 													</div>
 												</div>
+
 												<div class="hr-dashed"></div>
-										</div>
-									</div>
-								</div>
-							</div>
 
-							<div class="row">
-								<div class="col-md-12">
-									<div class="panel panel-default">
-										<div class="panel-heading">Accessories</div>
-										<div class="panel-body">
-
-											<div class="form-group">
-												<div class="col-sm-3">
-													<div class="checkbox checkbox-inline">
-														<input type="checkbox" id="airconditioner" name="airconditioner" value="1">
-														<label for="airconditioner"> Air Conditioner </label>
-													</div>
-												</div>
-
-												<div class="col-sm-3">
-													<div class="checkbox checkbox-inline">
-														<input type="checkbox" id="powerdoorlocks" name="powerdoorlocks" value="1">
-														<label for="powerdoorlocks"> Power Door Locks </label>
-													</div>
-												</div>
-
-												<div class="col-sm-3">
-													<div class="checkbox checkbox-inline">
-														<input type="checkbox" id="antilockbrakingsys" name="antilockbrakingsys" value="1">
-														<label for="antilockbrakingsys"> AntiLock Braking System </label>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="checkbox checkbox-inline">
-														<input type="checkbox" id="brakeassist" name="brakeassist" value="1">
-														<label for="brakeassist"> Brake Assist </label>
-													</div>
-												</div>
-											</div>
-
-											<div class="form-group">
-												<div class="col-sm-3">
-													<div class="checkbox checkbox-inline">
-														<input type="checkbox" id="powersteering" name="powersteering" value="1">
-														<label for="inlineCheckbox5"> Power Steering </label>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="checkbox checkbox-inline">
-														<input type="checkbox" id="driverairbag" name="driverairbag" value="1">
-														<label for="driverairbag">Driver Airbag</label>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="checkbox checkbox-inline">
-														<input type="checkbox" id="passengerairbag" name="passengerairbag" value="1">
-														<label for="passengerairbag"> Passenger Airbag </label>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="checkbox checkbox-inline">
-														<input type="checkbox" id="powerwindow" name="powerwindow" value="1">
-														<label for="powerwindow"> Power Windows </label>
-													</div>
-												</div>
-											</div>
-
-											<div class="form-group">
-												<div class="col-sm-3">
-													<div class="checkbox checkbox-inline">
-														<input type="checkbox" id="cdplayer" name="cdplayer" value="1">
-														<label for="cdplayer"> CD Player </label>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="checkbox h checkbox-inline">
-														<input type="checkbox" id="centrallocking" name="centrallocking" value="1">
-														<label for="centrallocking">Central Locking</label>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="checkbox checkbox-inline">
-														<input type="checkbox" id="crashcensor" name="crashcensor" value="1">
-														<label for="crashcensor"> Crash Sensor </label>
-													</div>
-												</div>
-												<div class="col-sm-3">
-													<div class="checkbox checkbox-inline">
-														<input type="checkbox" id="leatherseats" name="leatherseats" value="1">
-														<label for="leatherseats"> Leather Seats </label>
-													</div>
-												</div>
-											</div>
 										</div>
 									</div>
 								</div>
@@ -337,8 +270,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<div class="form-group">
 												<div class="col-sm-3">
 													<div class="checkbox checkbox-inline">
-														<button class="btn btn-primary" type="submit">Save changes</button>
-														<button class="btn btn-default" type="reset">reset</button>
+														<button class="btn btn-primary" type="submit" style="margin-top:4%">Save changes</button>
 													</div>
 												</div>
 											</div>
@@ -346,13 +278,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 									</div>
 								</div>
 							</div>
+
 						</div>
 					</div>
+					</form>
 
 				</div>
 			</div>
 		</div>
-		</form>
 
 		<!-- Loading Scripts -->
 		<script src="js/jquery.min.js"></script>

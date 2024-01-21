@@ -6,6 +6,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
 } else {
 ?>
+
 	<!doctype html>
 	<html lang="en" class="no-js">
 
@@ -17,7 +18,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<meta name="author" content="">
 		<meta name="theme-color" content="#3e454c">
 
-		<title>VMS | KOLINLAMIL </title>
+		<title>VMS | Kolinlamil</title>
 
 		<!-- Font awesome -->
 		<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -54,12 +55,21 @@ if (strlen($_SESSION['alogin']) == 0) {
 				box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .1);
 			}
 		</style>
-
+		<script type="text/javascript">
+			function valid(theform) {
+				pola_nama = /^[a-zA-Z]*$/;
+				if (!pola_nama.test(theform.brand.value)) {
+					alert('Hanya huruf yang diperbolehkan untuk Merek!');
+					theform.brand.focus();
+					return false;
+				}
+				return (true);
+			}
+		</script>
 	</head>
 
 	<body>
 		<?php include('includes/header.php'); ?>
-
 		<div class="ts-main-content">
 			<?php include('includes/leftbar.php'); ?>
 			<div class="content-wrapper">
@@ -68,51 +78,46 @@ if (strlen($_SESSION['alogin']) == 0) {
 					<div class="row">
 						<div class="col-md-12">
 
-							<h2 class="page-title">Kondisi Kendaraan Dinas Kolinlamil</h2>
+							<h2 class="page-title">Edit Jenis Kendaraan</h2>
 
-							<!-- Zero Configuration Table -->
-							<div class="panel panel-default">
-								<div class="panel-heading">Daftar Kondisi</div>
-								<div class="panel-body">
-									<?php if ($error) { ?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
-									<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-										<thead>
-											<tr align="center">
-												<th>No</th>
-												<th>Nama Kendaraan Dinas</th>
-												<th>Merek Kendaraan Dinas</th>
-												<th>Kondisi Kendaraan Dinas</th>
-												<th>Pemegang Kendaraan Dinas</th>
-												<!-- <th>Tgl. Update</th> -->
-												<th><a href="tambahkondisi.php"><span class="fa fa-plus-circle"></span>Tambah Merek</a></th>
-											</tr>
-										</thead>
-										<tbody>
-
-											<?php
-											$nomor = 0;
-											$sqlmerek = "SELECT * FROM mobil";
-											$querymerek = mysqli_query($koneksidb, $sqlmerek);
-											while ($result = mysqli_fetch_array($querymerek)) {
-												$nomor++;
-											?>
-												<tr align="center">
-													<td><?php echo htmlentities($nomor); ?></td>
-													<td><?php echo htmlentities($result['nama_kendaraan']); ?></td>
-													<td><?php echo htmlentities($result['merek']); ?></td>
-													<td><?php echo htmlentities($result['kondisi']); ?></td>
-													<td><?php echo htmlentities($result['pemegang']); ?></td>
-													<td><a href="kondisiedit.php?id=<?php echo $result['nomor_al_kotama']; ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-														<a href="kondisidel.php?id=<?php echo $result['nomor_al_kotama']; ?>" onclick="return confirm('Apakah anda yakin akan menghapus <?php echo $result['nama_merek']; ?>?');"><i class="fa fa-close"></i></a>
-													</td>
-												</tr>
-											<?php } ?>
-										</tbody>
-									</table>
+							<div class="row">
+								<div class="col-md-10">
+									<div class="panel panel-default">
+										<div class="panel-heading">Form Edit Jenis Kendaraan</div>
+										<div class="panel-body">
+											<form method="post" name="theform" class="form-horizontal" action="jeniseditact.php" onSubmit="return valid(this);">
+												<?php
+												$id = $_GET['id'];
+												$sql = "SELECT * FROM jenis WHERE id_jenis='$id'";
+												$query = mysqli_query($koneksidb, $sql);
+												$result = mysqli_fetch_array($query);
+												?>
+												<div class="form-group">
+													<label class="col-sm-4 control-label">Jenis Kendaraan</label>
+													<div class="col-sm-8">
+														<input type="text" class="form-control" value="<?php echo htmlentities($result['jenis_kendaraan']); ?>" name="brand" id="brand" required>
+														<input type="hidden" class="form-control" value="<?php echo htmlentities($id); ?>" name="id" id="id" required>
+													</div>
+												</div>
+												<div class="hr-dashed"></div>
+												<div class="form-group">
+													<div class="col-sm-8 col-sm-offset-4">
+														<button class="btn btn-primary" type="submit">Submit</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
 								</div>
+
 							</div>
+
+
+
 						</div>
 					</div>
+
+
 				</div>
 			</div>
 		</div>
@@ -127,6 +132,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<script src="js/fileinput.js"></script>
 		<script src="js/chartData.js"></script>
 		<script src="js/main.js"></script>
+
 	</body>
 
 	</html>

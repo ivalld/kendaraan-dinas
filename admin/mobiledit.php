@@ -77,12 +77,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 					<div class="row">
 						<div class="col-md-12">
 
-							<h2 class="page-title">Edit Mobil</h2>
+							<h2 class="page-title">Edit Kendaraan</h2>
 
 							<div class="row">
 								<div class="col-md-12">
 									<div class="panel panel-default">
-										<div class="panel-heading">Form Edit Mobil</div>
+										<div class="panel-heading">Form Edit Kendaraan</div>
 										<div class="panel-body">
 											<?php
 											$id = intval($_GET['id']);
@@ -92,15 +92,43 @@ if (strlen($_SESSION['alogin']) == 0) {
 											?>
 
 											<form method="post" class="form-horizontal" name="theform" action="mobileditact.php" onsubmit="return valid(this);" enctype="multipart/form-data">
+
 												<div class="form-group">
-													<label class="col-sm-2 control-label">Nama Mobil<span style="color:red">*</span></label>
+													<label class="col-sm-2 control-label">Pemilik Kendaraan<span style="color:red">*</span></label>
 													<div class="col-sm-4">
 														<input type="hidden" name="id" class="form-control" value="<?php echo $id; ?>" required>
-														<input type="text" name="vehicletitle" class="form-control" value="<?php echo htmlentities($result['nama_mobil']); ?>" required>
+														<input type="text" name="pemegang" class="form-control" value="<?php echo htmlentities($result['pemegang']); ?>" required>
 													</div>
+													<label class="col-sm-2 control-label">Satker<span style="color:red">*</span></label>
+													<div class="col-sm-4">
+														<select class="form-control" name="satker" required="" data-parsley-error-message="Field ini harus diisi">
+															<option value=""></option>
+															<?php
+															$mySql = "SELECT distinct satker FROM mobil ORDER BY kd_satker";
+															$myQry = mysqli_query($koneksidb, $mySql);
+															$datasatker = $result['kd_satker'];
+															while ($satkerData = mysqli_fetch_array($myQry)) {
+																if ($satkerData['kd_satker'] == $datasatker) {
+																	$cek = " selected";
+																} else {
+																	$cek = "";
+																}
+																echo "<option value='$satkerkData[kd_satker]' $cek>" . strtoupper($satkerData['satker']) . "</option>";
+															}
+															?>
+														</select>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<!-- <label class="col-sm-2 control-label">Nama Mobil<span style="color:red">*</span></label>
+													<div class="col-sm-4">
+														<input type="hidden" name="id" class="form-control" value="<?php echo $id; ?>" required>
+														<input type="text" name="namacar" class="form-control" value="<?php echo htmlentities($result['nama_mobil']); ?>" required>
+													</div> -->
 													<label class="col-sm-2 control-label">Merek<span style="color:red">*</span></label>
 													<div class="col-sm-4">
-														<select class="form-control" name="brandname" required="" data-parsley-error-message="Field ini harus diisi">
+														<select class="form-control" name="merek" required="" data-parsley-error-message="Field ini harus diisi">
 															<option value=""></option>
 															<?php
 															$mySql = "SELECT * FROM merek ORDER BY nama_merek";
@@ -119,29 +147,44 @@ if (strlen($_SESSION['alogin']) == 0) {
 													</div>
 												</div>
 
-												<div class="hr-dashed"></div>
 												<div class="form-group">
-													<label class="col-sm-2 control-label">Deskripsi Mobil<span style="color:red">*</span></label>
+													<label class="col-sm-2 control-label">Nama Kendaraan<span style="color:red">*</span></label>
 													<div class="col-sm-4">
-														<textarea class="form-control" name="vehicalorcview" rows="3" required><?php echo htmlentities($result['deskripsi']); ?></textarea>
+														<input type="hidden" name="id" class="form-control" value="<?php echo $id; ?>" required>
+														<input type="text" name="nama_kendaraan" class="form-control" value="<?php echo htmlentities($result['nama_kendaraan']); ?>" required>
 													</div>
-													<label class="col-sm-2 control-label">No. Polisi<span style="color:red">*</span></label>
+													<label class="col-sm-2 control-label">Jenis Kendaraan<span style="color:red">*</span></label>
 													<div class="col-sm-4">
-														<input type="text" name="nopol" class="form-control" value="<?php echo htmlentities($result['nopol']); ?>" required>
+														<input type="hidden" name="id" class="form-control" value="<?php echo $id; ?>" required>
+														<input type="text" name="jenis_kendaraan" class="form-control" value="<?php echo htmlentities($result['jenis_kendaraan']); ?>" required>
 													</div>
 												</div>
 
+												<div class="hr-dashed"></div>
 												<div class="form-group">
-													<!-- <label class="col-sm-2 control-label">Harga /Hari<span style="color:red">*</span></label>
+													<label class="col-sm-2 control-label">Kondisi Kendaraan<span style="color:red">*</span></label>
 													<div class="col-sm-4">
-														<input type="text" name="priceperday" class="form-control" value="<?php echo htmlentities($result['harga']); ?>" required>
-													</div> -->
+														<input type="hidden" name="id" class="form-control" value="<?php echo $id; ?>" required>
+														<input type="text" name="kondisi" class="form-control" value="<?php echo htmlentities($result['kondisi']); ?>" required>
+													</div>
+													<label class="col-sm-2 control-label">Nomor Randis Kotama<span style="color:red">*</span></label>
+													<div class="col-sm-4">
+														<input type="text" name="nomor_al_kotama" class="form-control" value="<?php echo htmlentities($result['nomor_al_kotama']); ?>" required>
+													</div>
+												</div>
+
+
+												<div class="form-group">
+													<label class="col-sm-2 control-label">Nomor Randis Pusat<span style="color:red">*</span></label>
+													<div class="col-sm-4">
+														<input type="text" name="nomor_al_pusat" class="form-control" value="<?php echo htmlentities($result['nomor_al_pusat']); ?>" required>
+													</div>
 													<label class="col-sm-2 control-label">Jenis Bahan Bakar<span style="color:red">*</span></label>
 													<div class="col-sm-4">
 														<select class="form-control" name="fueltype" required>
 															<?php
 															$jk = $result['bb'];
-															echo "<option value='$jk' selected>" . $jk . "</option>";
+															// echo "<option value='$jk' selected>" . $jk . "</option>";
 															echo "<option value='Bensin'>Bensin</option>";
 															echo "<option value='Diesel'>Diesel</option>";
 															?>
@@ -150,15 +193,28 @@ if (strlen($_SESSION['alogin']) == 0) {
 												</div>
 
 												<div class="form-group">
-													<label class="col-sm-2 control-label">Tahun Registrasi<span style="color:red">*</span></label>
+
+													<label class="col-sm-2 control-label">Nomor Mesin<span style="color:red">*</span></label>
 													<div class="col-sm-4">
-														<input type="text" name="modelyear" class="form-control" value="<?php echo htmlentities($result['tahun']); ?>" required>
+														<input type="text" name="nomor_mesin" class="form-control" value="<?php echo htmlentities($result['nomor_mesin']); ?>" required>
 													</div>
-													<label class="col-sm-2 control-label">Jumlah Tempat Duduk<span style="color:red">*</span></label>
+													<label class="col-sm-2 control-label">Nomor Rangka<span style="color:red">*</span></label>
 													<div class="col-sm-4">
-														<input type="text" name="seatingcapacity" class="form-control" value="<?php echo htmlentities($result['seating']); ?>" required>
+														<input type="text" name="nomor_rangka" class="form-control" value="<?php echo htmlentities($result['nomor_rangka']); ?>" required>
 													</div>
 												</div>
+
+												<div class="form-group">
+													<label class="col-sm-2 control-label">Tahun Registrasi<span style="color:red">*</span></label>
+													<div class="col-sm-4">
+														<input type="text" name="tahun_buat" class="form-control" value="<?php echo htmlentities($result['tahun_buat']); ?>" required>
+													</div>
+													<label class="col-sm-2 control-label">Perolehan<span style="color:red">*</span></label>
+													<div class="col-sm-4">
+														<input type="text" name="perolehan" class="form-control" value="<?php echo htmlentities($result['perolehan']); ?>" required>
+													</div>
+												</div>
+
 
 												<div class="hr-dashed"></div>
 

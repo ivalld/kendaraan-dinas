@@ -55,7 +55,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 							<h2 class="page-title">Dashboard</h2>
 
-							<div class="row">
+							<!-- <div class="row">
 								<div class="col-md-12">
 									<div class="row">
 
@@ -64,11 +64,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<div class="panel-body bk-info text-light">
 													<div class="stat-panel text-center">
 														<?php
-														$sqlbayar = "SELECT id_jenis FROM jenis WHERE";
-														$querybayar = mysqli_query($koneksidb, $sqlbayar);
-														$bayar = mysqli_num_rows($querybayar);
+														$sqljenis = "SELECT id_jenis FROM jenis";
+														$queryjenis = mysqli_query($koneksidb, $sqljenis);
+														$jenis = mysqli_num_rows($queryjenis);
 														?>
-														<div class="stat-panel-number h1 "><?php echo htmlentities($bayar); ?></div>
+														<div class="stat-panel-number h1 "><?php echo htmlentities($jenis); ?></div>
 														<div class="stat-panel-title text-uppercase">Jenis Kendaraan Dinas Kolinlamil</div>
 													</div>
 												</div>
@@ -81,7 +81,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<div class="panel-body bk-info text-light">
 													<div class="stat-panel text-center">
 														<?php
-														$sqlkonfir = "SELECT kode_booking FROM booking WHERE status='Menunggu Konfirmasi'";
+														$sqlkonfir = "SELECT kondisi FROM mobil";
 														$querykonfir = mysqli_query($koneksidb, $sqlkonfir);
 														$konfir = mysqli_num_rows($querykonfir);
 														?>
@@ -89,7 +89,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<div class="stat-panel-title text-uppercase">Kondisi Kendaraan Dinas Kolinlamil</div>
 													</div>
 												</div>
-												<a href="#" class="block-anchor panel-footer text-center">Rincian &nbsp; <i class="fa fa-arrow-right"></i></a>
+												<a href="kondisi.php" class="block-anchor panel-footer text-center">Rincian &nbsp; <i class="fa fa-arrow-right"></i></a>
 											</div>
 										</div>
 
@@ -98,7 +98,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<div class="panel-body bk-info text-light">
 													<div class="stat-panel text-center">
 														<?php
-														$sqlbelum = "SELECT kode_booking FROM booking WHERE status='Sudah Dibayar'";
+														$sqlbelum = "SELECT distinct nomor_al_kotama FROM mobil";
 														$querybelum = mysqli_query($koneksidb, $sqlbelum);
 														$belum = mysqli_num_rows($querybelum);
 														?>
@@ -109,17 +109,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<a href="#" class="block-anchor panel-footer text-center">Rincian &nbsp; <i class="fa fa-arrow-right"></i></a>
 											</div>
 										</div>
-									</div>
-								</div>
-							</div>
 
-							<div class="row">
-								<div class="col-md-12">
-									<div class="row">
 
 										<div class="col-md-4">
 											<div class="panel panel-default">
-												<div class="panel-body bk-primary text-light">
+												<div class="panel-body bk-info text-light">
 													<div class="stat-panel text-center">
 														<?php
 														$sql3 = "SELECT id_merek FROM merek";
@@ -134,6 +128,15 @@ if (strlen($_SESSION['alogin']) == 0) {
 											</div>
 										</div>
 
+									</div>
+								</div>
+							</div> -->
+
+							<div class="row">
+								<div class="col-md-12">
+									<div class="row">
+
+
 										<div class="col-md-4">
 											<div class="panel panel-default">
 												<div class="panel-body bk-primary text-light">
@@ -144,7 +147,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 														$totalvehicle = mysqli_num_rows($query1);
 														?>
 														<div class="stat-panel-number h1 "><?php echo htmlentities($totalvehicle); ?></div>
-														<div class="stat-panel-title text-uppercase">Jumlah Kendaraan Dinas Kolinlamil</div>
+														<div class="stat-panel-title text-uppercase">Daftar Kendaraan Dinas Kolinlamil</div>
 													</div>
 												</div>
 												<a href="mobil.php" class="block-anchor panel-footer text-center">Rincian &nbsp; <i class="fa fa-arrow-right"></i></a>
@@ -156,17 +159,68 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<div class="panel-body bk-primary text-light">
 													<div class="stat-panel text-center">
 														<?php
-														$sql = "SELECT id_user FROM users";
+														$sqlsatker = "SELECT nama_satker FROM satker";
+														$querysatker = mysqli_query($koneksidb, $sqlsatker);
+														$satker = mysqli_num_rows($querysatker);
+														?>
+														<div class="stat-panel-number h1 "><?php echo htmlentities($satker); ?></div>
+														<div class="stat-panel-title text-uppercase">Satuan Kerja Kolinlamil</div>
+													</div>
+												</div>
+												<a href="satker.php" class="block-anchor panel-footer text-center">Rincian &nbsp; <i class="fa fa-arrow-right"></i></a>
+											</div>
+										</div>
+
+										<div class="col-md-4">
+											<div class="panel panel-default">
+												<div class="panel-body bk-primary text-light">
+													<div class="stat-panel text-center">
+														<?php
+														$sql = "SELECT jenis_kendaraan FROM mobil where jenis_kendaraan='motor'";
 														$query = mysqli_query($koneksidb, $sql);
 														$regusers = mysqli_num_rows($query);
 														?>
 														<div class="stat-panel-number h1 "><?php echo htmlentities($regusers); ?></div>
-														<div class="stat-panel-title text-uppercase">User</div>
+														<div class="stat-panel-title text-uppercase">Daftar Motor</div>
 													</div>
 												</div>
-												<a href="reg-users.php" class="block-anchor panel-footer text-center">Rincian <i class="fa fa-arrow-right"></i></a>
+												<a href="daftarmotor.php" class="block-anchor panel-footer text-center">Rincian <i class="fa fa-arrow-right"></i></a>
 											</div>
 										</div>
+										<div class="col-md-4">
+											<div class="panel panel-default">
+												<div class="panel-body bk-primary text-light">
+													<div class="stat-panel text-center">
+														<?php
+														$sql = "SELECT jenis_kendaraan FROM mobil where jenis_kendaraan not in ('Motor','Forklift','Truk')";
+														$query = mysqli_query($koneksidb, $sql);
+														$regusers = mysqli_num_rows($query);
+														?>
+														<div class="stat-panel-number h1 "><?php echo htmlentities($regusers); ?></div>
+														<div class="stat-panel-title text-uppercase">Daftar Mobil</div>
+													</div>
+												</div>
+												<a href="daftarmobil.php" class="block-anchor panel-footer text-center">Rincian <i class="fa fa-arrow-right"></i></a>
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="panel panel-default">
+												<div class="panel-body bk-primary text-light">
+													<div class="stat-panel text-center">
+														<?php
+														$sql = "SELECT jenis_kendaraan FROM mobil where jenis_kendaraan in ('Forklift','Truk')";
+														$query = mysqli_query($koneksidb, $sql);
+														$regusers = mysqli_num_rows($query);
+														?>
+														<div class="stat-panel-number h1 "><?php echo htmlentities($regusers); ?></div>
+														<div class="stat-panel-title text-uppercase">Daftar Truck</div>
+													</div>
+												</div>
+												<a href="daftartruk.php" class="block-anchor panel-footer text-center">Rincian <i class="fa fa-arrow-right"></i></a>
+											</div>
+										</div>
+
+
 
 									</div>
 								</div>
@@ -176,7 +230,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 								<div class="col-md-12">
 									<div class="row">
 
-										<div class="col-md-4">
+										<!-- <div class="col-md-4">
 											<div class="panel panel-default">
 												<div class="panel-body bk-blue text-light">
 													<div class="stat-panel text-center">
@@ -191,24 +245,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 												</div>
 												<a href="#" class="block-anchor panel-footer text-center">Rincian &nbsp; <i class="fa fa-arrow-right"></i></a>
 											</div>
-										</div>
+										</div> -->
 
-										<div class="col-md-4">
-											<div class="panel panel-default">
-												<div class="panel-body bk-blue text-light">
-													<div class="stat-panel text-center">
-														<?php
-														$sqlsatker = "SELECT nama_satker FROM satker";
-														$querysatker = mysqli_query($koneksidb, $sqlsatker);
-														$satker = mysqli_num_rows($querysatker);
-														?>
-														<div class="stat-panel-number h1 "><?php echo htmlentities($satker); ?></div>
-														<div class="stat-panel-title text-uppercase">Satuan Kerja Kolinlamil</div>
-													</div>
-												</div>
-												<a href="satker.php" class="block-anchor panel-footer text-center">Rincian &nbsp; <i class="fa fa-arrow-right"></i></a>
-											</div>
-										</div>
+
 
 									</div>
 								</div>

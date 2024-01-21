@@ -10,6 +10,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	<html lang="en" class="no-js">
 
 	<head>
+
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
@@ -17,7 +18,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<meta name="author" content="">
 		<meta name="theme-color" content="#3e454c">
 
-		<title>VMS | KOLINLAMIL </title>
+		<title>VMS | Kolinlamil </title>
 
 		<!-- Font awesome -->
 		<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -68,42 +69,51 @@ if (strlen($_SESSION['alogin']) == 0) {
 					<div class="row">
 						<div class="col-md-12">
 
-							<h2 class="page-title">Kondisi Kendaraan Dinas Kolinlamil</h2>
+							<h2 class="page-title">Daftar Truk Kolinlamil</h2>
 
 							<!-- Zero Configuration Table -->
 							<div class="panel panel-default">
-								<div class="panel-heading">Daftar Kondisi</div>
+								<div class="panel-heading">Truk Dinas Kolinlamil</div>
 								<div class="panel-body">
 									<?php if ($error) { ?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
 									<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 										<thead>
 											<tr align="center">
-												<th>No</th>
-												<th>Nama Kendaraan Dinas</th>
-												<th>Merek Kendaraan Dinas</th>
-												<th>Kondisi Kendaraan Dinas</th>
-												<th>Pemegang Kendaraan Dinas</th>
-												<!-- <th>Tgl. Update</th> -->
-												<th><a href="tambahkondisi.php"><span class="fa fa-plus-circle"></span>Tambah Merek</a></th>
+												<th style="text-align: center;"> No</th>
+												<th style="text-align: center;"> Nama Satuan Kerja</th>
+												<th style="text-align: center;"> Pemegang Truk</th>
+												<th style="text-align: center;"> Nama Truk</th>
+												<th style="text-align: center;"> Tahun Pembuatan</th>
+												<th style="text-align: center;"> Plat Nomor</th>
+												<th style="text-align: center;"> Nomor Mesin</th>
+												<th style="text-align: center;"> Nomor Rangka</th>
+												<th style="text-align: center;"> Kondisi</th>
+												<th style="text-align: center;"> Keterangan</th>
+												<th><a href="#?"><span class="fa fa-plus-circle"></span>Aksi</a></th>
 											</tr>
 										</thead>
 										<tbody>
 
 											<?php
 											$nomor = 0;
-											$sqlmerek = "SELECT * FROM mobil";
-											$querymerek = mysqli_query($koneksidb, $sqlmerek);
-											while ($result = mysqli_fetch_array($querymerek)) {
+											$sqlsatker = "SELECT * FROM mobil where jenis_kendaraan in ('Forklift','Truk')";
+											$querysatker = mysqli_query($koneksidb, $sqlsatker);
+											while ($result = mysqli_fetch_array($querysatker)) {
 												$nomor++;
 											?>
 												<tr align="center">
 													<td><?php echo htmlentities($nomor); ?></td>
-													<td><?php echo htmlentities($result['nama_kendaraan']); ?></td>
-													<td><?php echo htmlentities($result['merek']); ?></td>
-													<td><?php echo htmlentities($result['kondisi']); ?></td>
+													<td><?php echo htmlentities($result['satker']); ?></td>
 													<td><?php echo htmlentities($result['pemegang']); ?></td>
-													<td><a href="kondisiedit.php?id=<?php echo $result['nomor_al_kotama']; ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-														<a href="kondisidel.php?id=<?php echo $result['nomor_al_kotama']; ?>" onclick="return confirm('Apakah anda yakin akan menghapus <?php echo $result['nama_merek']; ?>?');"><i class="fa fa-close"></i></a>
+													<td><?php echo htmlentities($result['nama_kendaraan']); ?></td>
+													<td><?php echo htmlentities($result['tahun_buat']); ?></td>
+													<td><?php echo htmlentities($result['nomor_al_kotama']); ?></td>
+													<td><?php echo htmlentities($result['nomor_mesin']); ?></td>
+													<td><?php echo htmlentities($result['nomor_rangka']); ?></td>
+													<td><?php echo htmlentities($result['kondisi']); ?></td>
+													<td><?php echo htmlentities($result['#']); ?></td>
+													<td><a href="daftartrukedit.php?id=<?php echo $result['id_mobil']; ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+														<a href="dafartrukdel.php?id=<?php echo $result['id_mobil']; ?>" onclick="return confirm('Apakah anda yakin akan menghapus <?php echo $result['id_mobil']; ?>?');"><i class="fa fa-close"></i></a>
 													</td>
 												</tr>
 											<?php } ?>

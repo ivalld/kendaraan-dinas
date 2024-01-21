@@ -5,7 +5,6 @@ include('includes/config.php');
 error_reporting(0);
 ?>
 
-
 <!DOCTYPE HTML>
 <html lang="en">
 
@@ -53,9 +52,17 @@ error_reporting(0);
   <!-- /Header -->
 
   <!--Listing-Image-Slider-->
-
   <?php
-  $vhid = intval($_GET['vhid']);
+  if (isset($_GET['vhid'])) {
+    $vhid    = $_GET['vhid'];
+  } else {
+    die("Error. No ID Selected!");
+  }
+
+
+
+
+  // $vhid = intval($_GET['vhid']);
   $sql = "SELECT mobil.*, merek.*  from mobil, merek WHERE merek.id_merek=mobil.id_merek AND mobil.id_mobil='$vhid'";
   $query = mysqli_query($koneksidb, $sql);
   if (mysqli_num_rows($query) > 0) {
@@ -105,7 +112,7 @@ error_reporting(0);
                 <div class="listing_detail_wrap">
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs gray-bg" role="tablist">
-                    <li role="presentation"><a href="#vehicle-overview " aria-controls="vehicle-overview" role="tab" data-toggle="tab">Deskripisi Kendaraan</a></li>
+                    <!-- <li role="presentation"><a href="#vehicle-overview " aria-controls="vehicle-overview" role="tab" data-toggle="tab">Deskripisi Kendaraan</a></li> -->
 
                     <li role="presentation"><a href="#accessories" aria-controls="accessories" role="tab" data-toggle="tab">Accessories</a></li>
 
@@ -118,11 +125,11 @@ error_reporting(0);
                   <!-- Tab panes -->
                   <div class="tab-content">
                     <!-- vehicle-overview -->
-                    <div role="tabpanel" class="tab-pane active" id="vehicle-overview">
+                    <!-- <div role="tabpanel" class="tab-pane active" id="vehicle-overview">
 
                       <p><?php echo htmlentities($result['deskripsi']); ?></p>
                       <p>nomor randis = <?php echo htmlentities($result['nopol']); ?></p>
-                    </div>
+                    </div> -->
 
                     <!-- Detail Kendaraan -->
                     <div role="tabpanel" class="tab-pane" id="detail">
@@ -180,7 +187,7 @@ error_reporting(0);
                       </table>
                     </div>
                     <!-- Accessories -->
-                    <div role="tabpanel" class="tab-pane" id="accessories">
+                    <div role="tabpanel" class="tab-pane active" class="tab-pane" id="accessories">
                       <!--Accessories-->
                       <table>
                         <thead>

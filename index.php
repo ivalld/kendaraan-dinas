@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('includes/config.php');
+include('paging.php');
 // include('includes/format_rupiah.php');
 error_reporting(0);
 
@@ -85,8 +86,8 @@ error_reporting(0);
                     <div class="car-info-box"> <a href="vehical-details.php?vhid=<?php echo htmlentities($results['id_mobil']); ?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($results['image1']); ?>" class="img-responsive" alt="image"></a>
                       <ul>
                         <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($results['bb']); ?></li>
-                        <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($results['tahun']); ?> Model</li>
-                        <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($results['seating']); ?> Seats</li>
+                        <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($results['tahun']); ?> </li>
+                        <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($results['pemegang']); ?> </li>
                       </ul>
                     </div>
                     <div class="car-title-m">
@@ -99,7 +100,6 @@ error_reporting(0);
                 </div>
             <?php }
             } ?>
-
           </div>
         </div>
       </div>

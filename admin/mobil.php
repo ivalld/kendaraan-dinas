@@ -75,38 +75,48 @@ if (strlen($_SESSION['alogin']) == 0) {
 									<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 										<thead>
 											<tr>
-												<th>No</th>
-												<th>Nama Mobil</th>
-												<th>Merek</th>
-												<th>Jenis Kendaraan</th>
-												<th>No Randis</th>
-												<th>No Mesin</th>
-												<th>No Rangka</th>
+												<th style="text-align: center" ;>No</th>
+												<th style="text-align: center" ;>Satker</th>
+												<th style="text-align: center" ;>Pemilik Kendaraan</th>
+												<th style="text-align: center" ;>Nama Kendaraan</th>
+												<th style="text-align: center" ;>Jenis Kendaraan</th>
+												<th style="text-align: center" ;>Kondisi Kendaraan</th>
+												<th style="text-align: center" ;>Bahan Bakar</th>
+												<th style="text-align: center" ;>No Randis Kotama</th>
+												<th style="text-align: center" ;>No Randis Pusat</th>
+												<th style="text-align: center" ;>No Mesin</th>
+												<th style="text-align: center" ;>No Rangka</th>
+												<th style="text-align: center" ;>Perolehan</th>
 												<!-- <th>Harga /Hari</th> -->
 												<!-- <th>Type BB</th> -->
-												<th>Tahun Pembuatan</th>
-												<th><a href="tambahmobil.php"><span class="fa fa-plus-circle"></span>Tambah Randis</a></th>
+												<th style="text-align: center;">Tahun Pembuatan</th>
+												<th style="text-align: center;"><a href="tambahmobil.php"><span class="fa fa-plus-circle"></span>Tambah Randis</a></th>
 											</tr>
 										</thead>
 										<tbody>
 											<?php
 											$nomor = 0;
-											$sqlmobil = "SELECT mobil.*, merek.* FROM mobil, merek WHERE mobil.id_merek=merek.id_merek ORDER BY mobil.id_mobil ASC";
+											$sqlmobil = "SELECT mobil.*, merek.* FROM mobil, merek WHERE mobil.id_merek=merek.id_merek ORDER BY mobil.kd_satker ASC";
 											$querymobil = mysqli_query($koneksidb, $sqlmobil);
 											while ($result = mysqli_fetch_array($querymobil)) {
 												$nomor++;
 											?>
 												<tr>
-													<td><?php echo htmlentities($nomor); ?></td>
-													<td><?php echo htmlentities($result['nama_mobil']); ?></td>
-													<td><?php echo htmlentities($result['nama_merek']); ?></td>
-													<td><?php echo htmlentities($result['#']); ?></td>
-													<td><?php echo htmlentities($result['nopol']); ?></td>
-													<td><?php echo htmlentities($result['#']); ?></td>
-													<td><?php echo htmlentities($result['# ']); ?></td>
+													<td style="text-align: center"><?php echo htmlentities($nomor); ?></td>
+													<td style="text-align: center"><?php echo htmlentities($result['satker']); ?></td>
+													<td style="text-align: center"><?php echo htmlentities($result['pemegang']); ?></td>
+													<td style="text-align: center"><?php echo htmlentities($result['nama_kendaraan']); ?></td>
+													<td style="text-align: center"><?php echo htmlentities($result['jenis_kendaraan']); ?></td>
+													<td style="text-align: center"><?php echo htmlentities($result['kondisi']); ?></td>
+													<td style="text-align: center"><?php echo htmlentities($result['bb']); ?></td>
+													<td style="text-align: center"><?php echo htmlentities($result['nomor_al_kotama']); ?></td>
+													<td style="text-align: center"><?php echo htmlentities($result['nomor_al_pusat']); ?></td>
+													<td style="text-align: center"><?php echo htmlentities($result['nomor_mesin']); ?></td>
+													<td style="text-align: center"><?php echo htmlentities($result['nomor_rangka']); ?></td>
+													<td style="text-align: center"><?php echo htmlentities($result['perolehan']); ?></td>
 													<!-- <td><?php echo format_rupiah($result['harga']); ?></td>
 													<td><?php echo htmlentities($result['bb']); ?></td> -->
-													<td><?php echo htmlentities($result['tahun']); ?></td>
+													<td style="text-align: center"><?php echo htmlentities($result['tahun_buat']); ?></td>
 													<td class="text-center"><a href="mobiledit.php?id=<?php echo $result['id_mobil']; ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 														<a href="mobildel.php?id=<?php echo $result['id_mobil']; ?>" onclick="return confirm('Apakah anda akan menghapus <?php echo $result['nama_mobil']; ?>?');"><i class="fa fa-close"></i></a>
 													</td>

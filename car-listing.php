@@ -30,13 +30,13 @@ error_reporting(0);
   <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- SWITCHER -->
-  <link rel="stylesheet" id="switcher-css" type="text/css" href="assets/switcher/css/switcher.css" media="all" />
+  <!-- <link rel="stylesheet" id="switcher-css" type="text/css" href="assets/switcher/css/switcher.css" media="all" />
   <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/red.css" title="red" media="all" data-default-color="true" />
   <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/orange.css" title="orange" media="all" />
   <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/blue.css" title="blue" media="all" />
   <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/pink.css" title="pink" media="all" />
   <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/green.css" title="green" media="all" />
-  <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" />
+  <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" /> -->
 
   <!-- Fav and touch icons -->
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/favicon-icon/apple-touch-icon-144-precomposed.png">
@@ -100,8 +100,8 @@ error_reporting(0);
                 <div class="product-listing-content">
                   <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result['id_mobil']); ?>"><?php echo htmlentities($result['nama_merek']); ?> , <?php echo htmlentities($result['nama_mobil']); ?></a></h5>
                   <ul>
-                    <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result['seating']); ?> Seats</li>
-                    <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result['tahun']); ?> </li>
+                    <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result['pemegang']); ?> </li>
+                    <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result['tahun_buat']); ?> </li>
                     <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result['bb']); ?></li>
                   </ul>
                   <a href="vehical-details.php?vhid=<?php echo htmlentities($result['id_mobil']); ?>" class="btn">Lihat Detail <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
@@ -111,37 +111,54 @@ error_reporting(0);
           } ?>
         </div>
 
-        <!--Side-Bar-->
+        <!--Side-Bar Option Filter-->
         <aside class="col-md-3 col-md-pull-9">
           <div class="sidebar_widget">
             <div class="widget_heading">
               <h5><i class="fa fa-filter" aria-hidden="true"></i>Cari Kendaraan</h5>
             </div>
             <div class="sidebar_filter">
-              <form action="search-carresult.php" method="post">
-                <div class="form-group select">
-                  <select class="form-control" name="brand" required>
-                    <option value="" selected>Silahkan Pilih</option>
-                    <?php
-                    $sql3 = "SELECT * from  merek";
-                    $query3 = mysqli_query($koneksidb, $sql3);
-                    if (mysqli_num_rows($query3) > 0) {
-                      while ($result = mysqli_fetch_array($query3)) { ?>
-                        <option value="<?php echo htmlentities($result['id_mobil']); ?>"><?php echo htmlentities($result['nama_merek']); ?></option>
-                    <?php }
-                    } ?>
-                  </select>
+              <!-- <form action="search-carresult.php" method="post"> -->
+              <div class="form-group select">
+                <div class="col-lg-20">
+                  <div class="card">
+                    <div class="card-body">
+                      <?php
+                      $satker = "";
+                      $nomor_al_kotama = "";
+
+                      if (isset($_POST['kolom'])) {
+
+                        if ($_POST['kolom'] == "satker") {
+                          $satker = "selected";
+                        } else {
+                          $nomor_al_kotama = "selected";
+                        }
+                      }
+                      ?>
+                      <select class="form-control" name="kolom" required>
+                        <option value="">Silahkan pilih Kategori</option>
+                        <option value="satker" <?php echo $satker; ?>>SATKER</option>
+                        <option value="nomor_al_kotama" <?php echo $nomor_al_kotama; ?>>PLAT NOMOR</option>
+                      </select>
+
+                      <div class="form-group">
+                        <label>Kata Kunci:</label>
+                        <?php
+                        $kata_kunci = "";
+                        if (isset($_POST['kata_kunci'])) {
+                          $kata_kunci = $_POST['kata_kunci'];
+                        }
+                        ?>
+                        <input type="text" name="kata_kunci" value="<?php echo $kata_kunci; ?>" class="form-control" required />
+                      </div>
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-info far fa-compass"> Cari</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="form-group select">
-                  <select class="form-control" name="fueltype" required>
-                    <option value="">Jenis Bahan Bakar</option>
-                    <option value="Bensin">Bensin</option>
-                    <option value="Diesel">Diesel</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <button type="submit" class="btn btn-block"><i class="fa fa-search" aria-hidden="true"></i>Cari</button>
-                </div>
+              </div>
               </form>
             </div>
           </div>

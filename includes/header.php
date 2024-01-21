@@ -12,7 +12,7 @@
         <li><a href="index.php">Home</a></li>
         <!-- <li><a href="page.php?type=aboutus">Tentang Kami</a></li> -->
         <li><a href="car-listing.php">Daftar Kendaraan</a>
-        <li><a href="#">Daftar Kondisi</a>
+          <!-- <li><a href="#">Daftar Kondisi</a> -->
           <!-- <li><a href="page.php?type=faqs">FAQs</a></li> -->
           <!-- <li><a href="contact-us.php">Hubungi Kami</a></li> -->
 

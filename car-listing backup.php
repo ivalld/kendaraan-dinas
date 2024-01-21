@@ -127,7 +127,7 @@ error_reporting(0);
                     $query3 = mysqli_query($koneksidb, $sql3);
                     if (mysqli_num_rows($query3) > 0) {
                       while ($result = mysqli_fetch_array($query3)) { ?>
-                        <option value="<?php echo htmlentities($result['id_mobil']); ?>"><?php echo htmlentities($result['nama_merek']); ?></option>
+                        <option value="<?php echo htmlentities($result['id_merek']); ?>"><?php echo htmlentities($result['nama_merek']); ?></option>
                     <?php }
                     } ?>
                   </select>

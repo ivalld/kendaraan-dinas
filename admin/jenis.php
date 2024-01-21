@@ -72,7 +72,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 							<!-- Zero Configuration Table -->
 							<div class="panel panel-default">
-								<div class="panel-heading">Daftar enis Kendaraan Dinas Kolinlamil</div>
+								<div class="panel-heading">Daftar Jenis Kendaraan Dinas Kolinlamil</div>
 								<div class="panel-body">
 									<?php if ($error) { ?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
 									<table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
@@ -80,8 +80,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<tr align="center">
 												<th>No</th>
 												<th>Jenis Kendaraan</th>
-												<th>Tgl. Dibuat</th>
-												<th>Tgl. Update</th>
+												<!-- <th>Tgl. Dibuat</th>
+												<th>Tgl. Update</th> -->
 												<th><a href="tambahmerek.php"><span class="fa fa-plus-circle"></span>Tambah Jenis Kendaraan</a></th>
 											</tr>
 										</thead>
@@ -89,18 +89,18 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 											<?php
 											$nomor = 0;
-											$sqlmerek = "SELECT * FROM merek";
+											$sqlmerek = "SELECT * FROM jenis";
 											$querymerek = mysqli_query($koneksidb, $sqlmerek);
 											while ($result = mysqli_fetch_array($querymerek)) {
 												$nomor++;
 											?>
 												<tr align="center">
 													<td><?php echo htmlentities($nomor); ?></td>
-													<td><?php echo htmlentities($result['tipe_kendaraan']); ?></td>
-													<td><?php echo htmlentities($result['created_at']); ?></td>
-													<td><?php echo htmlentities($result['update_at']); ?></td>
-													<td><a href="merekedit.php?id=<?php echo $result['id_merek']; ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-														<a href="merekdel.php?id=<?php echo $result['id_merek']; ?>" onclick="return confirm('Apakah anda yakin akan menghapus <?php echo $result['nama_merek']; ?>?');"><i class="fa fa-close"></i></a>
+													<td><?php echo htmlentities($result['jenis_kendaraan']); ?></td>
+													<!-- <td><?php echo htmlentities($result['created_at']); ?></td>
+													<td><?php echo htmlentities($result['update_at']); ?></td> -->
+													<td><a href="jenisedit.php?id=<?php echo $result['id_jenis']; ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+														<a href="merekdel.php?id=<?php echo $result['id_jenis']; ?>" onclick="return confirm('Apakah anda yakin akan menghapus <?php echo $result['jenis_kendaraan']; ?>?');"><i class="fa fa-close"></i></a>
 													</td>
 												</tr>
 											<?php } ?>
