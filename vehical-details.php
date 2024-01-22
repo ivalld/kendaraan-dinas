@@ -94,7 +94,7 @@ error_reporting(0);
                 <ul>
 
                   <li> <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <h5><?php echo htmlentities($result['tahun']); ?></h5>
+                    <h5><?php echo htmlentities($result['tahun_buat']); ?></h5>
                     <p>Tahun Registrasi</p>
                   </li>
                   <li> <i class="fa fa-cogs" aria-hidden="true"></i>
@@ -102,10 +102,10 @@ error_reporting(0);
                     <p>Tipe Bahan Bakar</p>
                   </li>
 
-                  <li> <i class="fa fa-user-plus" aria-hidden="true"></i>
+                  <!-- <li> <i class="fa fa-user-plus" aria-hidden="true"></i>
                     <h5><?php echo htmlentities($result['seating']); ?></h5>
                     <p>Seats</p>
-                  </li>
+                  </li> -->
                 </ul>
               </div>
               <div class="listing_more_info">
